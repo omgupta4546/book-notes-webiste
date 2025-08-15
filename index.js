@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express from "express";
 import pg from "pg";
 import bodyParser from "body-parser";
@@ -8,12 +9,14 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
+
+
 const db = new pg.Client({
-  user: "postgres",
-  host: "localhost",
-  database: "book_library", // Apne database ka naam yahaan daalein
-  password: "Omgupta@4546", // Apne password daalein
-  port: 3000,
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_DATABASE,
+  password: process.env.DB_PASSWORD, // Ab securely load hoga
+  port: process.env.DB_PORT,
 });
 db.connect();
 app.set("view engine", "ejs");
