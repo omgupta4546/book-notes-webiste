@@ -16,7 +16,11 @@ app.set("view engine", "ejs");
 // Render deployment ke liye DATABASE_URL use kiya jaata hai
 // Local development ke liye .env file mein DB_USER, DB_HOST, etc. use hote hain.
 const db = new pg.Client({
-  connectionString: process.env.DATABASE_URL
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false // Render par SSL ke liye zaroori hai
+  }
+
 });
 db.connect();
 
